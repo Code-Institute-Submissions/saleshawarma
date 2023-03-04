@@ -19,7 +19,20 @@ def get_sales_data():
     print("Comma separation: 1,2,3,4,5,6\n")
 
     data_str = input("Enter your data:")
-    print(f"The entered data is {data_str}")
+
+    sales_data = data_str.split(",")
+    print(sales_data)
+
+
+def validate_data(values):
+    # Inside the try, converst all string valuees into integers
+    try:
+        if len(values) != 6:
+            raise ValueError(
+                f"6 values are entered, confirmed{len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, Enter again. \n")
 
 
 get_sales_data()
