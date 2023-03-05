@@ -12,6 +12,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('saleshawarma')
 
+
 def get_sales_data():
     
     print("Please enter sales data from last market.")
@@ -21,18 +22,20 @@ def get_sales_data():
     data_str = input("Enter your data:")
 
     sales_data = data_str.split(",")
-    print(sales_data)
+    validate_data(sales_data)
 
 
 def validate_data(values):
     # Inside the try, converst all string valuees into integers
+   
     try:
+        [int(value) for value in values]
         if len(values) != 6:
             raise ValueError(
-                f"6 values are entered, confirmed{len(values)}"
+                f" 6 values are necessary, you enterd {len(values)}"
             )
     except ValueError as e:
-        print(f"Invalid data: {e}, Enter again. \n")
+        print(f"Invalid data: {e}, enter again. \n")
 
 
 get_sales_data()
