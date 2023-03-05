@@ -15,17 +15,24 @@ SHEET = GSPREAD_CLIENT.open('saleshawarma')
 
 def get_sales_data():
     
-    print("Please enter sales data from last market.")
-    print("Data should be six number, separated by commas.")
-    print("Comma separation: 1,2,3,4,5,6\n")
+    while True:
+        print("Enter the data from the last sales")
+        print("Exactly 6 numbers must be entered, with commas separating them.")
+        print("The number as to be as: 1,2,3,4,5,6")
 
-    data_str = input("Enter your data:")
+        data_str = input("Enter your data:")
 
-    sales_data = data_str.split(",")
-    validate_data(sales_data)
+        sales_data = data_str.split(",")
+        
+        if validate_data(sales_data):
+            print("The entered data is valid!")
+            break
+
+    return sales_data    
 
 
 def validate_data(values):
+
     # Inside the try, converst all string valuees into integers
    
     try:
@@ -35,7 +42,20 @@ def validate_data(values):
                 f" 6 values are necessary, you enterd {len(values)}"
             )
     except ValueError as e:
-        print(f"Invalid data: {e}, enter again. \n")
+        print(f"Invalid data: {e}, enter again.\n")
+        return False
+    
+    return True
 
 
-get_sales_data()
+def update_sales_sheet(data):
+    # sales_sheets updater
+    print("updating sales values")
+    sales_sheet = SHEET.worksheet("sales")
+    sales_sheet.append_row(data)
+    print("The update was sucessfull\n")
+
+
+data = get_sales_data()
+sales_data = [int(num)for num in data]
+update_sales_sheet(sales_data)
