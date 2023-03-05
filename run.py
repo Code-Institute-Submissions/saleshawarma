@@ -53,9 +53,28 @@ def update_sales_sheet(data):
     print("updating sales values")
     sales_sheet = SHEET.worksheet("sales")
     sales_sheet.append_row(data)
-    print("The update was sucessfull\n")
+    print("The update was sucessfull.\n")
 
 
-data = get_sales_data()
-sales_data = [int(num)for num in data]
-update_sales_sheet(sales_data)
+def calculate_surplus(sales_row):
+
+    # suplus calculation
+
+    print("Calculating surplus\n")
+    stock = SHEET.worksheet("stock").get_all_values()
+    stock_row = stock[-1]
+    print(stock_row)
+
+
+def main():
+
+    # run all the functions
+
+    data = get_sales_data()
+    sales_data = [int(num)for num in data]
+    update_sales_sheet(sales_data)
+    calculate_surplus(sales_data)
+
+
+print("welcome Sale Sawhawarma")
+main()
