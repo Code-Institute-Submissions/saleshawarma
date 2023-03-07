@@ -48,12 +48,27 @@ def validate_data(values):
     return True
 
 
-def update_sales_sheet(data):
+"""def update_sales_sheet(data):
     # sales_sheets updater
     print("updating sales values")
     sales_sheet = SHEET.worksheet("sales")
     sales_sheet.append_row(data)
-    print("The update was sucessfull.\n")
+    print(" The sale update was sucessfull.\n")
+
+
+def update_surplus_sheet(data):
+    # surplus_sheets updater
+    print("updating surplus values")
+    surplus_sheet = SHEET.worksheet("surplus")
+    surplus_sheet.append_row(data)
+    print("The surplus update was sucessfull.\n")
+"""
+
+def update_worksheet(data, worksheet):
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet update was successful\n")
 
 
 def calculate_surplus(sales_row):
@@ -63,8 +78,16 @@ def calculate_surplus(sales_row):
     print("Calculating surplus\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
-    print(stock_row)
 
+    surplus_data = []
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+    # if (surplus != 0 and -surplus):
+    # print("Keep the surplus for the Doggs ")
+
+    return surplus_data    
+    
 
 def main():
 
@@ -72,9 +95,10 @@ def main():
 
     data = get_sales_data()
     sales_data = [int(num)for num in data]
-    update_sales_sheet(sales_data)
-    calculate_surplus(sales_data)
-
+    update_worksheet(sales_data, "sales")
+    new_surplus = calculate_surplus(sales_data)
+    update_worksheet(new_surplus, "surplus")
+  
 
 print("welcome Sale Sawhawarma")
 main()
