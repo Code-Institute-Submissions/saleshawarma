@@ -20,7 +20,7 @@ def get_sales_data():
         print("Exactly 6 numbers must be entered, with commas separating them.")
         print("The number as to be as: 1,2,3,4,5,6")
 
-        data_str = input("Enter your data:")
+        data_str = input("Enter your data:\n")
 
         sales_data = data_str.split(",")
         
@@ -64,7 +64,9 @@ def update_surplus_sheet(data):
     print("The surplus update was sucessfull.\n")
 """
 
+
 def update_worksheet(data, worksheet):
+
     print(f"Updating {worksheet} worksheet...\n")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
@@ -83,11 +85,24 @@ def calculate_surplus(sales_row):
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
         surplus_data.append(surplus)
-    # if (surplus != 0 and -surplus):
-    # print("Keep the surplus for the Doggs ")
+        # if (surplus != 0 and -surplus):
+        # print("Keep the surplus for the Doggs ")
 
     return surplus_data    
-    
+
+
+def get_last_5_entries_sales():
+
+    sales = SHEET.worksheet("sales")
+    # column = sales.col_values(3)
+    # print(column)
+
+    columns = []
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column)
+    print(columns)   
+
 
 def main():
 
@@ -101,4 +116,6 @@ def main():
   
 
 print("welcome Sale Sawhawarma")
-main()
+
+# main()
+get_last_5_entries_sales()
