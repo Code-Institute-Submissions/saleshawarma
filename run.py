@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -12,10 +13,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('saleshawarma')
 
+sales = SHEET.worksheet('sales')
+data = sales.get_all_values()
 
-def get_sales_data():
-    
-    while True:
+print(data)
+
+"""vdef get_sales_data():
+
+while True:
         print("Enter the data from the last sales")
         print("Exactly 6 numbers must be entered, with commas separating them.")
         print("The number as to be as: 1,2,3,4,5,6")
@@ -48,7 +53,7 @@ def validate_data(values):
     return True
 
 
-"""def update_sales_sheet(data):
+def update_sales_sheet(data):
     # sales_sheets updater
     print("updating sales values")
     sales_sheet = SHEET.worksheet("sales")
@@ -62,7 +67,7 @@ def update_surplus_sheet(data):
     surplus_sheet = SHEET.worksheet("surplus")
     surplus_sheet.append_row(data)
     print("The surplus update was sucessfull.\n")
-"""
+
 
 
 def update_worksheet(data, worksheet):
@@ -119,3 +124,4 @@ print("welcome Sale Sawhawarma")
 
 # main()
 get_last_5_entries_sales()
+"""
