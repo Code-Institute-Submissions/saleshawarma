@@ -27,8 +27,9 @@ def get_sales_data():
 
 
 def validate_data(values):
-
+    
     try:
+        [int(value) for value in values]
         if len(values) == 6:
             
             print(f"Exatly 6 values are entered as shown: {len(values)}")
