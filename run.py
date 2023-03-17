@@ -20,14 +20,25 @@ def get_sales_data():
     print("Exactly 6 numbers must be entered, with commas separating them.")
     print("The number as to be as: 10,20,30,40,50,60")
 
-    data_str = input("Enter your data:\n")
+    data_str = input("Enter your data: \n")
     
     sales_data = data_str.split(",")
     validate_data(sales_data)
 
 
 def validate_data(values):
-    print(values) 
+
+    try:
+        if len(values) == 6:
+            
+            print(f"Exatly 6 values are entered as shown: {len(values)}")
+            
+        else:
+            raise ValueError(
+                f"The entered element is shorter {len(values)}"
+             )
+    except ValueError as e:
+        print(f"Invalid date: {e}, please try again.\n")        
 
 
 get_sales_data()
